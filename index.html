@@ -1,32 +1,392 @@
-Điều Khoản Dịch Vụ - Rei#9171
-1. Thu thập & Xử lý Dữ liệu (Quyền Riêng Tư)
-Khi bạn tương tác với Rei (thông qua tag, dấu lệnh ., dùng Slash Commands hoặc chat trong Thread riêng), bạn đồng ý để hệ thống xử lý các dữ liệu sau:
+<!doctype html>
+<html lang="vi">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta
+			name="description"
+			content="Điều khoản dịch vụ và chính sách sử dụng Rei#9171."
+		/>
+		<title>Điều khoản dịch vụ | Rei#9171</title>
+		<style>
+			:root {
+				color-scheme: light;
+				--background: #f4f7fb;
+				--surface: #ffffff;
+				--text: #172033;
+				--muted: #667085;
+				--line: #e4e9f1;
+				--accent: #356ae6;
+				--accent-soft: #edf3ff;
+				--shadow: 0 18px 50px rgba(35, 56, 91, 0.1);
+			}
 
-Trí nhớ dài hạn (Knowledge System): Rei có khả năng tự động trích xuất và lưu trữ cục bộ các thông tin cá nhân mà bạn chia sẻ (sở thích, tên gọi, mối quan hệ, chức vụ) để cá nhân hóa cuộc trò chuyện. Bạn hoàn toàn có quyền yêu cầu Rei "quên" thông tin này hoặc liên hệ trực tiếp với Chủ nhân (Owner) để xóa dữ liệu.
+			* {
+				box-sizing: border-box;
+			}
 
-Xử lý Đa phương tiện: Bất kỳ hình ảnh, đường link (URL) hoặc nội dung nào bạn gửi cho Rei đều có thể được đọc và phân tích thông qua API của các bên thứ ba (Google Gemini, Jina AI) để tạo ra câu trả lời. Chúng tôi không dùng dữ liệu này để quảng cáo hay bán cho bên thứ ba.
+			body {
+				margin: 0;
+				background: linear-gradient(135deg, #eef4ff 0%, var(--background) 42%, #f9fbfd 100%);
+				color: var(--text);
+				font-family: "Segoe UI", Tahoma, sans-serif;
+				line-height: 1.7;
+			}
 
-Trí nhớ ngắn hạn: Lịch sử trò chuyện gần nhất trong kênh/Thread sẽ được lưu tạm thời trên bộ nhớ RAM để duy trì ngữ cảnh và sẽ tự động bị xóa bỏ khi khởi động lại hệ thống hoặc khi người dùng sử dụng lệnh /clear.
+			.page {
+				width: min(100% - 32px, 900px);
+				margin: 0 auto;
+				padding: 64px 0 80px;
+			}
 
-2. Trách nhiệm & Quy định Sử dụng
-Bằng việc sử dụng Rei, bạn cam kết tuân thủ các quy tắc sau nhằm đảm bảo an toàn cho máy chủ và giới hạn tài nguyên API:
+			.document {
+				overflow: hidden;
+				background: var(--surface);
+				border: 1px solid rgba(228, 233, 241, 0.9);
+				border-radius: 16px;
+				box-shadow: var(--shadow);
+			}
 
-Không lạm dụng (Spam): Nghiêm cấm hành vi gửi lệnh liên tục, spam hình ảnh hoặc đường link với mục đích làm quá tải API, vắt kiệt giới hạn truy vấn (Quota) của bot.
+			.hero {
+				padding: 48px clamp(24px, 6vw, 64px) 40px;
+				background: linear-gradient(135deg, #1d3f91, #356ae6);
+				color: #ffffff;
+			}
 
-Nội dung an toàn: Bạn không được yêu cầu Rei phân tích, đọc hoặc tạo ra (Generate) các nội dung vi phạm pháp luật, bạo lực, khiêu dâm (NSFW), hoặc vi phạm Tiêu chuẩn Cộng đồng của Discord. API của Google được tích hợp bộ lọc an toàn và sẽ tự động từ chối các yêu cầu này.
+			.hero-top {
+				display: flex;
+				align-items: center;
+				justify-content: space-between;
+				gap: 20px;
+			}
 
-Tôn trọng bảo mật: Mọi hành vi cố tình tìm lỗ hổng (prompt injection) nhằm chiếm đoạt quyền quản trị, đánh lừa hệ thống ép bot cấp Role hoặc xóa tin nhắn trái phép đều bị nghiêm cấm.
+			.eyebrow {
+				margin: 0;
+				color: #cddcff;
+				font-size: 0.78rem;
+				font-weight: 700;
+				letter-spacing: 0.14em;
+				text-transform: uppercase;
+			}
 
-3. Quyền Quản trị & Giới hạn Trách nhiệm AI
-Rei không chỉ là một chatbot mà còn là công cụ quản lý máy chủ. Người dùng cần hiểu rõ các giới hạn sau:
+			.language-button {
+				padding: 8px 13px;
+				border: 1px solid rgba(255, 255, 255, 0.55);
+				border-radius: 999px;
+				background: rgba(255, 255, 255, 0.12);
+				color: #ffffff;
+				font: inherit;
+				font-size: 0.8rem;
+				font-weight: 700;
+				letter-spacing: 0.08em;
+				cursor: pointer;
+				transition: background 160ms ease, border-color 160ms ease;
+			}
 
-Đại diện cho Quản trị viên: Rei được trang bị quyền lực quản lý (Kick khỏi kênh thoại, dọn dẹp tin nhắn hàng loạt, thêm/xóa Role). Tính năng này được khóa bảo mật tuyệt đối và chỉ Chủ nhân (Owner) mới có quyền ra lệnh. Mọi thao tác quản lý do Rei thực thi được xem là quyết định chính thức từ ban quản trị máy chủ.
+			.language-button:hover,
+			.language-button:focus-visible {
+				border-color: #ffffff;
+				background: rgba(255, 255, 255, 0.24);
+				outline: none;
+			}
 
-Hiện tượng "Ảo giác" (Hallucination): Vì Rei là Trí tuệ Nhân tạo, các câu trả lời, thông tin tìm kiếm trên Internet hoặc nội dung tóm tắt báo chí/video có thể không chính xác 100%. Rei không chịu trách nhiệm pháp lý cho các lời khuyên về y tế, tài chính hay pháp lý.
+			h1,
+			h2 {
+				margin: 0;
+				line-height: 1.2;
+			}
 
-Độ trễ và Tính khả dụng: Các tính năng lướt web, sinh ảnh (Pollinations) và phân tích ngôn ngữ phụ thuộc vào máy chủ của bên thứ ba. Dịch vụ có thể tạm gián đoạn (Lỗi 503) hoặc bảo trì mà không cần báo trước.
+			h1 {
+				max-width: 650px;
+				font-family: "Segoe UI", Tahoma, sans-serif;
+				font-size: clamp(2rem, 5vw, 3.2rem);
+				font-weight: 700;
+			}
 
-4. Sửa đổi Điều khoản & Chấm dứt Dịch vụ
-Quyền từ chối phục vụ: Chủ nhân của Rei có toàn quyền chặn (blacklist) bất kỳ cá nhân nào hoặc tắt bot vào bất kỳ lúc nào nếu phát hiện hành vi vi phạm điều khoản mà không cần báo trước.
+			.intro {
+				max-width: 650px;
+				margin: 18px 0 0;
+				color: #e5ecff;
+				font-size: 1.05rem;
+			}
 
-Cập nhật Điều khoản: Bản Điều Khoản Dịch Vụ này có thể được cập nhật theo thời gian để phù hợp với các tính năng mới được bổ sung cho Rei (như phát nhạc, minigame). Việc bạn tiếp tục sử dụng Rei đồng nghĩa với việc chấp nhận các thay đổi đó.
+			.content {
+				padding: 12px clamp(24px, 6vw, 64px) 48px;
+			}
+
+			.section {
+				padding: 36px 0;
+				border-bottom: 1px solid var(--line);
+			}
+
+			.section:last-child {
+				padding-bottom: 0;
+				border-bottom: 0;
+			}
+
+			h2 {
+				display: flex;
+				gap: 14px;
+				align-items: baseline;
+				color: #1c3f91;
+				font-size: clamp(1.25rem, 3vw, 1.55rem);
+			}
+
+			.number {
+				flex: 0 0 auto;
+				color: var(--accent);
+				font-family: Georgia, "Times New Roman", serif;
+				font-size: 1.1rem;
+			}
+
+			.section > p {
+				margin: 18px 0 0;
+				color: var(--muted);
+			}
+
+			.rules {
+				display: grid;
+				gap: 14px;
+				margin: 22px 0 0;
+				padding: 0;
+				list-style: none;
+			}
+
+			.rules li {
+				padding: 18px 20px;
+				border: 1px solid var(--line);
+				border-left: 4px solid var(--accent);
+				border-radius: 8px;
+				background: #fbfcff;
+			}
+
+			.rules strong {
+				color: var(--text);
+			}
+
+			.note {
+				margin-top: 22px;
+				padding: 16px 18px;
+				border-radius: 8px;
+				background: var(--accent-soft);
+				color: #29457d;
+			}
+
+			@media (max-width: 600px) {
+				.page {
+					width: min(100% - 20px, 900px);
+					padding: 20px 0 32px;
+				}
+
+				.hero {
+					padding: 32px 22px 28px;
+				}
+
+				.hero-top {
+					align-items: flex-start;
+				}
+
+				.content {
+					padding: 4px 22px 32px;
+				}
+
+				.section {
+					padding: 28px 0;
+				}
+
+				h2 {
+					align-items: flex-start;
+				}
+			}
+		</style>
+	</head>
+	<body>
+		<div class="page">
+			<article class="document">
+				<header class="hero">
+					<div class="hero-top">
+						<p class="eyebrow">Rei#9171</p>
+						<button class="language-button" id="language-toggle" type="button" aria-pressed="false">
+							VI <span aria-hidden="true">/</span> EN
+						</button>
+					</div>
+					<h1 data-i18n="pageTitle">Điều khoản dịch vụ</h1>
+					<p class="intro" data-i18n="pageIntro">
+						Vui lòng đọc các quy định dưới đây trước khi sử dụng Rei trong máy chủ Discord.
+					</p>
+				</header>
+
+				<main class="content">
+					<section class="section" aria-labelledby="privacy-title">
+						<h2 id="privacy-title"><span class="number">01</span> <span data-i18n="privacyTitle">Thu thập &amp; xử lý dữ liệu</span></h2>
+						<p data-i18n="privacyIntro">
+							Khi bạn tương tác với Rei (thông qua tag, dấu lệnh <code>.</code>, dùng Slash Commands
+							hoặc chat trong Thread riêng), bạn đồng ý để hệ thống xử lý các dữ liệu sau:
+						</p>
+						<ul class="rules">
+							<li data-i18n="longMemory">
+								<strong>Trí nhớ dài hạn (Knowledge System):</strong>
+								Rei có khả năng tự động trích xuất và lưu trữ cục bộ các thông tin cá nhân mà bạn
+								chia sẻ (sở thích, tên gọi, mối quan hệ, chức vụ) để cá nhân hóa cuộc trò chuyện.
+								Bạn hoàn toàn có quyền yêu cầu Rei "quên" thông tin này hoặc liên hệ trực tiếp với
+								Chủ nhân (Owner) để xóa dữ liệu.
+							</li>
+							<li data-i18n="mediaProcessing">
+								<strong>Xử lý đa phương tiện:</strong>
+								Bất kỳ hình ảnh, đường link (URL) hoặc nội dung nào bạn gửi cho Rei đều có thể được
+								đọc và phân tích thông qua API của các bên thứ ba (Google Gemini, Jina AI) để tạo ra
+								câu trả lời. Chúng tôi không dùng dữ liệu này để quảng cáo hay bán cho bên thứ ba.
+							</li>
+							<li data-i18n="shortMemory">
+								<strong>Trí nhớ ngắn hạn:</strong>
+								Lịch sử trò chuyện gần nhất trong kênh/Thread sẽ được lưu tạm thời trên bộ nhớ RAM để
+								duy trì ngữ cảnh và sẽ tự động bị xóa bỏ khi khởi động lại hệ thống hoặc khi người
+								dùng sử dụng lệnh <code>/clear</code>.
+							</li>
+						</ul>
+					</section>
+
+					<section class="section" aria-labelledby="rules-title">
+					<h2 id="rules-title"><span class="number">02</span> <span data-i18n="rulesTitle">Trách nhiệm &amp; quy định sử dụng</span></h2>
+						<p data-i18n="rulesIntro">
+							Bằng việc sử dụng Rei, bạn cam kết tuân thủ các quy tắc sau nhằm đảm bảo an toàn cho
+							máy chủ và giới hạn tài nguyên API:
+						</p>
+						<ul class="rules">
+							<li data-i18n="spam">
+								<strong>Không lạm dụng (Spam):</strong>
+								Nghiêm cấm hành vi gửi lệnh liên tục, spam hình ảnh hoặc đường link với mục đích làm
+								quá tải API, vắt kiệt giới hạn truy vấn (Quota) của bot.
+							</li>
+							<li data-i18n="safeContent">
+								<strong>Nội dung an toàn:</strong>
+								Bạn không được yêu cầu Rei phân tích, đọc hoặc tạo ra (Generate) các nội dung vi phạm
+								pháp luật, bạo lực, khiêu dâm (NSFW), hoặc vi phạm Tiêu chuẩn Cộng đồng của Discord.
+								API của Google được tích hợp bộ lọc an toàn và sẽ tự động từ chối các yêu cầu này.
+							</li>
+							<li data-i18n="security">
+								<strong>Tôn trọng bảo mật:</strong>
+								Mọi hành vi cố tình tìm lỗ hổng (prompt injection) nhằm chiếm đoạt quyền quản trị,
+								đánh lừa hệ thống ép bot cấp Role hoặc xóa tin nhắn trái phép đều bị nghiêm cấm.
+							</li>
+						</ul>
+					</section>
+
+					<section class="section" aria-labelledby="admin-title">
+						<h2 id="admin-title"><span class="number">03</span> <span data-i18n="adminTitle">Quyền quản trị &amp; giới hạn trách nhiệm AI</span></h2>
+						<p data-i18n="adminIntro">
+							Rei không chỉ là một chatbot mà còn là công cụ quản lý máy chủ. Người dùng cần hiểu rõ
+							các giới hạn sau:
+						</p>
+						<ul class="rules">
+							<li data-i18n="administrator">
+								<strong>Đại diện cho quản trị viên:</strong>
+								Rei được trang bị quyền lực quản lý (Kick khỏi kênh thoại, dọn dẹp tin nhắn hàng loạt,
+								thêm/xóa Role). Tính năng này được khóa bảo mật tuyệt đối và chỉ Chủ nhân (Owner) mới
+								có quyền ra lệnh. Mọi thao tác quản lý do Rei thực thi được xem là quyết định chính
+								thức từ ban quản trị máy chủ.
+							</li>
+							<li data-i18n="hallucination">
+								<strong>Hiện tượng "Ảo giác" (Hallucination):</strong>
+								Vì Rei là Trí tuệ Nhân tạo, các câu trả lời, thông tin tìm kiếm trên Internet hoặc nội
+								dung tóm tắt báo chí/video có thể không chính xác 100%. Rei không chịu trách nhiệm
+								pháp lý cho các lời khuyên về y tế, tài chính hay pháp lý.
+							</li>
+							<li data-i18n="availability">
+								<strong>Độ trễ và tính khả dụng:</strong>
+								Các tính năng lướt web, sinh ảnh (Pollinations) và phân tích ngôn ngữ phụ thuộc vào
+								máy chủ của bên thứ ba. Dịch vụ có thể tạm gián đoạn (Lỗi 503) hoặc bảo trì mà không
+								cần báo trước.
+							</li>
+						</ul>
+					</section>
+
+					<section class="section" aria-labelledby="changes-title">
+						<h2 id="changes-title"><span class="number">04</span> <span data-i18n="changesTitle">Sửa đổi điều khoản &amp; chấm dứt dịch vụ</span></h2>
+						<ul class="rules">
+							<li data-i18n="refusal">
+								<strong>Quyền từ chối phục vụ:</strong>
+								Chủ nhân của Rei có toàn quyền chặn (blacklist) bất kỳ cá nhân nào hoặc tắt bot vào
+								bất kỳ lúc nào nếu phát hiện hành vi vi phạm điều khoản mà không cần báo trước.
+							</li>
+							<li data-i18n="updates">
+								<strong>Cập nhật điều khoản:</strong>
+								Bản Điều khoản Dịch vụ này có thể được cập nhật theo thời gian để phù hợp với các tính
+								năng mới được bổ sung cho Rei (như phát nhạc, minigame). Việc bạn tiếp tục sử dụng Rei
+								đồng nghĩa với việc chấp nhận các thay đổi đó.
+							</li>
+						</ul>
+						<p class="note" data-i18n="note">Việc tiếp tục sử dụng Rei đồng nghĩa với việc bạn đã đọc và chấp nhận các điều khoản trên.</p>
+					</section>
+				</main>
+			</article>
+		</div>
+
+		<script>
+			const englishContent = {
+				pageTitle: "Terms of Service",
+				pageIntro: "Please read the following rules before using Rei on a Discord server.",
+				privacyTitle: "Data Collection & Processing",
+				privacyIntro:
+					"When you interact with Rei (by mentioning it, using the <code>.</code> command, Slash Commands, or chatting in a private Thread), you agree that the system may process the following data:",
+				longMemory:
+					"<strong>Long-term memory (Knowledge System):</strong> Rei may automatically extract and store locally the personal information you share (preferences, names, relationships, and roles) to personalize conversations. You may ask Rei to \"forget\" this information or contact the Owner directly to delete it.",
+				mediaProcessing:
+					"<strong>Multimedia processing:</strong> Any image, URL, or content you send to Rei may be read and analyzed through third-party APIs (Google Gemini, Jina AI) to generate a response. We do not use this data for advertising or sell it to third parties.",
+				shortMemory:
+					"<strong>Short-term memory:</strong> Recent conversation history in a channel or Thread is temporarily stored in RAM to maintain context. It is automatically deleted when the system restarts or when you use the <code>/clear</code> command.",
+				rulesTitle: "Responsibilities & Usage Rules",
+				rulesIntro:
+					"By using Rei, you agree to follow the rules below to help keep the server safe and limit API resource usage:",
+				spam:
+					"<strong>No abuse or spam:</strong> Repeatedly sending commands, spamming images, or sending links to overload the API or exhaust the bot's query quota is strictly prohibited.",
+				safeContent:
+					"<strong>Safe content:</strong> You must not ask Rei to analyze, read, or generate content that violates the law, promotes violence, contains sexual or NSFW material, or violates Discord's Community Guidelines. Google's API includes safety filters and will automatically reject such requests.",
+				security:
+					"<strong>Respect for security:</strong> Any attempt to exploit vulnerabilities (prompt injection) to take over administrative privileges, trick the system into assigning a Role, or delete messages without permission is strictly prohibited.",
+				adminTitle: "Administrative Powers & AI Liability Limits",
+				adminIntro:
+					"Rei is not only a chatbot but also a server-management tool. Users should understand the following limitations:",
+				administrator:
+					"<strong>Acting on behalf of administrators:</strong> Rei has management capabilities, including kicking users from voice channels, bulk-deleting messages, and adding or removing Roles. These features are strictly protected and only the Owner may issue such commands. Any management action carried out by Rei is considered an official decision of the server administration.",
+				hallucination:
+					"<strong>Hallucinations:</strong> Because Rei is an artificial intelligence, its answers, information found on the Internet, and summaries of articles or videos may not be 100% accurate. Rei accepts no legal responsibility for medical, financial, or legal advice.",
+				availability:
+					"<strong>Latency and availability:</strong> Web browsing, image generation (Pollinations), and language analysis depend on third-party servers. The service may be temporarily interrupted (including Error 503) or undergo maintenance without prior notice.",
+				changesTitle: "Changes to Terms & Service Termination",
+				refusal:
+					"<strong>Right to refuse service:</strong> The Owner may blacklist any individual or disable the bot at any time if a violation of these terms is detected, without prior notice.",
+				updates:
+					"<strong>Updates to these terms:</strong> These Terms of Service may be updated over time to reflect new Rei features, such as music playback or minigames. Continuing to use Rei means that you accept those changes.",
+				note: "By continuing to use Rei, you confirm that you have read and accepted these terms."
+			};
+
+			const translatableElements = document.querySelectorAll("[data-i18n]");
+			const vietnameseContent = new Map(
+				Array.from(translatableElements, (element) => [element.dataset.i18n, element.innerHTML])
+			);
+			const languageButton = document.querySelector("#language-toggle");
+
+			function setLanguage(language) {
+				const isEnglish = language === "en";
+
+				translatableElements.forEach((element) => {
+					const key = element.dataset.i18n;
+					element.innerHTML = isEnglish ? englishContent[key] : vietnameseContent.get(key);
+				});
+
+				document.documentElement.lang = language;
+				document.title = isEnglish ? "Terms of Service | Rei#9171" : "Điều khoản dịch vụ | Rei#9171";
+				document.querySelector('meta[name="description"]').content = isEnglish
+					? "Terms of Service and usage policy for Rei#9171."
+					: "Điều khoản dịch vụ và chính sách sử dụng Rei#9171.";
+				languageButton.setAttribute("aria-pressed", String(isEnglish));
+			}
+
+			languageButton.addEventListener("click", () => {
+				const nextLanguage = document.documentElement.lang === "vi" ? "en" : "vi";
+				setLanguage(nextLanguage);
+			});
+		</script>
+	</body>
+</html>
